@@ -1,0 +1,7 @@
+imdb_amazon,Supervised,0.571,0.571,0.571,0.000,0.000,nan
+imdb_amazon,PseudoLabel,0.634,0.545,0.545,0.084,0.092,0.296
+imdb_amazon,PiModel,0.597,0.615,0.535,0.051,0.056,0.504
+imdb_amazon,UDA,0.599,0.523,0.523,0.071,0.080,0.484
+imdb_amazon,FixMatch,0.530,0.540,0.500,0.027,0.031,-0.604
+imdb_amazon,FlexMatch,0.545,0.502,0.502,0.064,0.071,0.169
+imdb_amazon,SoftMatch,0.532,0.553,0.513,0.019,0.020,-0.347

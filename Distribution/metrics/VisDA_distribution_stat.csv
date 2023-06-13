@@ -1,0 +1,16 @@
+Synthetic,Real,Supervised,0.827,0.827,0.827,0.000,0.000,nan
+Synthetic,Real,PseudoLabel,0.816,0.823,0.815,0.002,0.003,-0.748
+Synthetic,Real,PiModel,0.817,0.822,0.815,0.002,0.003,-0.635
+Synthetic,Real,ICT,0.830,0.828,0.823,0.003,0.004,-0.455
+Synthetic,Real,UDA,0.824,0.806,0.806,0.006,0.004,0.950
+Synthetic,Real,FixMatch,0.818,0.854,0.767,0.017,0.007,-0.981
+Synthetic,Real,FlexMatch,0.850,0.862,0.804,0.014,0.016,-0.783
+Synthetic,Real,SoftMatch,0.840,0.865,0.801,0.026,0.026,-0.776
+Real,Synthetic,Supervised,0.754,0.754,0.754,0.000,0.000,nan
+Real,Synthetic,PseudoLabel,0.751,0.752,0.745,0.002,0.002,-0.843
+Real,Synthetic,PiModel,0.750,0.750,0.746,0.001,0.002,-0.667
+Real,Synthetic,ICT,0.738,0.756,0.700,0.012,0.009,-0.933
+Real,Synthetic,UDA,0.743,0.735,0.732,0.007,0.008,-0.225
+Real,Synthetic,FixMatch,0.716,0.751,0.622,0.028,0.026,-0.873
+Real,Synthetic,FlexMatch,0.741,0.773,0.628,0.033,0.037,-0.818
+Real,Synthetic,SoftMatch,0.726,0.804,0.603,0.040,0.033,-0.957
