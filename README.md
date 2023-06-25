@@ -110,29 +110,44 @@ For deep learning with Text data:
 # Benchmark Results
 The results are continuously updating.
 
+We plotted the RAC and performed statistical analysis on various evaluation metrics for different methods. For the plotting of the RAC curve, we sampled 6 t values [0, 0.2, 0.4, 0.6, 0.8, 1] for all open environments. To ensure reliability, we conducted three experiments for each sampling point with seed values of $0\sim2$. The average of these experiments was used to plot the curve. Linear interpolation was performed between adjacent sampling points.
+
 ## Inconsistent Data Distributions
+We set $t$ as the inconsistency rate between the distributions of labeled and unlabeled data. 
 
 ### Tabular Data
+For tabular data, we evaluated all statistical SSL algorithms and deep SSL algorithms on the iris, wine, and letter datasets. Additionally, we evaluated all deep SSL algorithms on the larger dataset covertype. We calculated the centroids of each class in the data and used the distance between samples and class centroids to filter samples, thus constructing an environment with inconsistent data distribution. 
+
 
 ### Image Data
+For image data, we directly used the Image-CLEF and VisDA datasets, which are commonly used in the field of transfer learning, to create environments with disparate distributions.
 
 ### Text Data
+For text data, we utilized the Amazon reviews and IMDB movie reviews datasets, which have different distributions in sentiment classification, to construct environments with inconsistent distributions.
 
 ## Inconsistent Feature Spaces
+We set $t$ as the inconsistency rate between the feature spaces of labeled and unlabeled data.
 
 ### Tabular Data
+For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. However, we introduced feature space inconsistency by randomly masking features. Each masked portion was filled with the mean value of the labeled data.
 
 ### Image Data
+For image data, we used the CIFAR10 and CIFAR100 datasets. To create an environment with inconsistent feature space, we converted the images to grayscale, resulting in the loss of two color channels. The missing channels were filled with the preserved channel.
 
 ### Text Data
+For text data, we used the agnews dataset. To construct an environment with inconsistent feature space, we employed text truncation. The truncated portions were filled with ``<pad>''.
 
 ## Inconsistent Label Spaces
+We set $t$ as the inconsistency rate between the labeling spaces of labeled and unlabeled data.
 
 ### Tabular Data
+For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes. 
 
 ### Image Data
+For image data, we used the CIFAR10 and CIFAR100 datasets. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes.
 
 ### Text Data
+For text data,  we used the agnews dataset. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes. 
 
 # Contribution
 Feel free to contribute in any way you like, we're always open to new ideas and approaches.
