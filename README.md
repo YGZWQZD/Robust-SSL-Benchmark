@@ -51,7 +51,7 @@ conda env create -f environment.yaml
 You can install the Benchmark by git.
 
 ```
-git clone https://github.com/ygzwqzd/LAMDA-SSL.git
+https://github.com/YGZWQZD/Robust-SSL-Benchmark.git
 ```
 
 # Benchmark Results
