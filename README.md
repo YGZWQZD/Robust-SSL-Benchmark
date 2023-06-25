@@ -41,7 +41,44 @@ $$RCC(Acc_T)=\frac{\int_0^1 Acc_T(t)\cdot t dt - \int_0^1 Acc_T(t) dt}{\sqrt{\in
 
 Overall, in open environments, we analyze RAC to reflect the performance of an algorithm or model as the inconsistency between unlabeled and labeled data changes. EA and its special case AUC reflect the overall performance. WA reflects the worst-case performance. EVM reflects the magnitude of performance variation. VS reflects the stability of the performance variation. RCC reflects the overall trend of performance variation. These metrics are all defined based on accuracy and can be extended to other different metrics by replacing the function $Acc_T$ and following the same procedure of plotting the curve and calculating the metrics according to the respective formulas.
 
+# Installation
+You can create the environment directly by anaconda.
+
+'''
+conda env create -f environment.yaml
+'''
+
+You can install the Benchmark by git.
+'''
+git clone https://github.com/ygzwqzd/LAMDA-SSL.git
+'''
+
 # Benchmark Results
+The results are continuously updating.
+
+## Inconsistent Data Distributions
+
+### Tabular Data
+
+### Image Data
+
+### Text Data
+
+## Inconsistent Feature Spaces
+
+### Tabular Data
+
+### Image Data
+
+### Text Data
+
+## Inconsistent Label Spaces
+
+### Tabular Data
+
+### Image Data
+
+### Text Data
 
 # Contribution
 Feel free to contribute in any way you like, we're always open to new ideas and approaches.
