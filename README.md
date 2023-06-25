@@ -8,7 +8,7 @@ This benchmark is open and continuously updated. To avoid unnecessary disputes, 
 ![Robust SSL](./Figures/RobustSSL.png)
 
 # Analytical Method
-Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. For example, we define the function that describes the change in model accuracy with inconsistency as $Acc_T$. we can plot the accuracy change curve to analyze the robustness, which we refer to as the Robustness Analysis Curve (RAC). The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis. For example:
+Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. we denote the degree of inconsistency between labeled and unlabeled data as t and describe robustness as the overall adaptability of an algorithm or model to all degrees of inconsistency t. We denote the function that describes the change in model accuracy with inconsistency as $Acc_T$. We plot the function Acc$_T$(t) and refer to it as the Robustness Analysis Curve (RAC), which is used to analyze the robustness of performance with respect to the changes in the degree of inconsistency t. The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis. For example:
 
 ![RAC](./Distribution/images/Distribution_VisDA.png)
 
