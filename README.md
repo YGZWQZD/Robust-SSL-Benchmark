@@ -118,13 +118,13 @@ We set $t$ as the inconsistency rate between the distributions of labeled and un
 ### Tabular Data
 For tabular data, we evaluated all statistical SSL algorithms and deep SSL algorithms on the iris, wine, and letter datasets. Additionally, we evaluated all deep SSL algorithms on the larger dataset covertype. We calculated the centroids of each class in the data and used the distance between samples and class centroids to filter samples, thus constructing an environment with inconsistent data distribution. 
 
-![Distribution_statistical_tabular_labels_5](./Distribution/images/Distribution_statistical_tabular_labels_5.eps)
+![Distribution_statistical_tabular_labels_5](./Distribution/images/Distribution_statistical_tabular_labels_5.png)
 
-![Distribution_deep_tabular_labels_5](./Distribution/images/Distribution_deep_tabular_labels_5.eps)
+![Distribution_deep_tabular_labels_5](./Distribution/images/Distribution_deep_tabular_labels_5.png)
 
-![Distribution_statistical_tabular_labels_10](./Distribution/images/Distribution_statistical_tabular_labels_10.eps)
+![Distribution_statistical_tabular_labels_10](./Distribution/images/Distribution_statistical_tabular_labels_10.png)
 
-![Distribution_deep_tabular_labels_10](./Distribution/images/Distribution_deep_tabular_labels_10.eps)
+![Distribution_deep_tabular_labels_10](./Distribution/images/Distribution_deep_tabular_labels_10.png)
 
 ### Image Data
 For image data, we directly used the Image-CLEF and VisDA datasets, which are commonly used in the field of transfer learning, to create environments with disparate distributions.
