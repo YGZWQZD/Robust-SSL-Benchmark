@@ -40,3 +40,18 @@ $$VS(Acc_T)=\int_0^1 [Acc_T'(t)-(\int_0^1Acc_T'(t)dt)]^2dt$$
 $$RCC(Acc_T)=\frac{\int_0^1 Acc_T(t)\cdot t dt - \int_0^1 Acc_T(t) dt}{\sqrt{\int_0^1 t^2dt -1}\cdot\sqrt{\int_0^1 Acc_T^2(t)dt-(\int_0^1 Acc_T(t) dt)^2}}$$
 
 Overall, in open environments, we analyze RAC to reflect the performance of an algorithm or model as the inconsistency between unlabeled and labeled data changes. EA and its special case AUC reflect the overall performance. WA reflects the worst-case performance. EVM reflects the magnitude of performance variation. VS reflects the stability of the performance variation. RCC reflects the overall trend of performance variation. These metrics are all defined based on accuracy and can be extended to other different metrics by replacing the function $Acc_T$ and following the same procedure of plotting the curve and calculating the metrics according to the respective formulas.
+
+# Benchmark Results
+
+# Contribution
+Feel free to contribute in any way you like, we're always open to new ideas and approaches.
+
+- Open a discussion if you have any questions.
+
+- Open an issue if you've spotted a bug or a performance issue.
+
+- Fork our project and create a pull request after committing your modifications.
+
+# Contact
+If you have any questions, please contact us: Lin-Han Jia[jialh@lamda.nju.edu.cn].
+
