@@ -144,11 +144,23 @@ We set $t$ as the inconsistency rate between the feature spaces of labeled and u
 ### Tabular Data
 For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. However, we introduced feature space inconsistency by randomly masking features. Each masked portion was filled with the mean value of the labeled data.
 
+![Feature_statistical_tabular_labels_5](./Feature/images/Feature_statistical_tabular_labels_5.png)
+
+![Feature_deep_tabular_labels_5](./Feature/images/Feature_deep_tabular_labels_5.png)
+
+![Feature_statistical_tabular_labels_10](./Feature/images/Feature_statistical_tabular_labels_10.png)
+
+![Feature_deep_tabular_labels_10](./Feature/images/Feature_deep_tabular_labels_10.png)
+
 ### Image Data
 For image data, we used the CIFAR10 and CIFAR100 datasets. To create an environment with inconsistent feature space, we converted the images to grayscale, resulting in the loss of two color channels. The missing channels were filled with the preserved channel.
 
+![Feature_CIFAR](./Feature/images/Feature_CIFAR.png)
+
 ### Text Data
 For text data, we used the agnews dataset. To construct an environment with inconsistent feature space, we employed text truncation. The truncated portions were filled with "<pad>".
+
+![Feature_agnews](./Feature/images/Feature_agnews.png)
 
 ## Inconsistent Label Spaces
 We set $t$ as the inconsistency rate between the labeling spaces of labeled and unlabeled data.
@@ -156,11 +168,23 @@ We set $t$ as the inconsistency rate between the labeling spaces of labeled and 
 ### Tabular Data
 For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes. 
 
+![Label_statistical_tabular_labels_5](./Label/images/Label_statistical_tabular_labels_5.png)
+
+![Label_deep_tabular_labels_5](./Label/images/Label_deep_tabular_labels_5.png)
+
+![Label_statistical_tabular_labels_10](./Label/images/Label_statistical_tabular_labels_10.png)
+
+![Label_deep_tabular_labels_10](./Label/images/Label_deep_tabular_labels_10.png)
+
 ### Image Data
 For image data, we used the CIFAR10 and CIFAR100 datasets. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes.
 
+![Label_agnews](./Label/images/Label_CIFAR.png)
+
 ### Text Data
 For text data,  we used the agnews dataset. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes. 
+
+![Label_agnews](./Label/images/Label_agnews.png)
 
 # Contribution
 Feel free to contribute in any way you like, we're always open to new ideas and approaches.
