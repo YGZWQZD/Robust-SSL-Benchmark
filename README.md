@@ -8,7 +8,9 @@ This benchmark is open and continuously updated. To avoid unnecessary disputes, 
 ![Robust SSL](./Figures/RobustSSL.png)
 
 # Analytical Method
-Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. For example, we define the function that describes the change in model accuracy with inconsistency as $Acc_T$. we can plot the accuracy change curve to analyze the robustness, which we refer to as the Robustness Analysis Curve (RAC). The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis.
+Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. For example, we define the function that describes the change in model accuracy with inconsistency as $Acc_T$. we can plot the accuracy change curve to analyze the robustness, which we refer to as the Robustness Analysis Curve (RAC). The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis.For example:
+
+![RAC](./Distribution/images/Distribution_VisDA.png)
 
 # Metrics
 In order to provide a more comprehensive evaluation of SSL algorithms, we have defined multiple evaluation metrics to assess the robustness of these algorithms as unlabeled data varies. Unlike previous classical SSL evaluations that only assess $Acc_T(0)$ and previous robust SSL evaluations that only assess $Acc_T(t)$ for a specific t, our established evaluation framework based on RAC can reflect the global robustness.
