@@ -5,6 +5,8 @@ We have corrected the misconceptions in previous research on robust SSL and resh
 
 This benchmark is open and continuously updated. To avoid unnecessary disputes, please understand that due to limited computational resources, the current evaluation scope is limited and cannot fully represent the performance of SSL algorithms in real-world applications. We welcome everyone to contribute additional experimental setups, codes, and results to improve this benchmark.
 
+![Robust SSL](./Figures/RobustSSL.png)
+
 # Analytical Method
 Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. For example, we define the function that describes the change in model accuracy with inconsistency as $Acc_T$. we can plot the accuracy change curve to analyze the robustness, which we refer to as the Robustness Analysis Curve (RAC). The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis.
 
