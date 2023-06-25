@@ -44,14 +44,15 @@ Overall, in open environments, we analyze RAC to reflect the performance of an a
 # Installation
 You can create the environment directly by anaconda.
 
-'''
+```
 conda env create -f environment.yaml
-'''
+```
 
 You can install the Benchmark by git.
-'''
+
+```
 git clone https://github.com/ygzwqzd/LAMDA-SSL.git
-'''
+```
 
 # Benchmark Results
 The results are continuously updating.
