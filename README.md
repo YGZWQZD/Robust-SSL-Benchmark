@@ -54,6 +54,59 @@ You can install the Benchmark by git.
 https://github.com/YGZWQZD/Robust-SSL-Benchmark.git
 ```
 
+# Algorithms Used for Evaluation
+
+The used algorithms are continuously updating.
+
+## Statistical Semi-Supervised Learning Algorithms
+
+- Semi-Supervised Gaussian Mixture Model (SSGMM)
+
+- TSVM
+
+- Label Propagation
+
+- Label Spreading
+
+- Tri-Training
+
+- Assemble
+
+## Deep Semi-Supervised Learning Algorithms
+
+- Pseudo Label
+
+- PiModel
+
+- MeanTeacher
+
+- ICT
+
+- UDA
+
+- FixMatch
+
+- FlexMatch
+
+- SoftMatch
+
+## Baseline Model
+For statistical learning with tabular data:
+
+- XGBoost
+
+For deep learning with tabular data:
+
+- FT-Transformer
+
+For deep learning with Image data:
+
+- ResNet50
+
+For deep learning with Text data:
+
+- Roberta
+
 # Benchmark Results
 The results are continuously updating.
 
