@@ -107,6 +107,25 @@ For deep learning with Text data:
 
 - Roberta
 
+# Detailed Settings
+## Statistical Methods
+- SSGMM
+- TSVM
+- Label Propagation: the hyperparameters provided by scikit-learn in default are used.
+- Label Spreading: the hyperparameters provided by scikit-learn in default are used.
+- Co-Training
+- Tri-Training
+- Assemble 
+## Deep Methods
+- Mean Teacher: the EMA decay is set to 0.999, the warmup rate of unsupervised loss $w_u$ is set to 0.4, and the ratio of unsupervised loss $\lambda_u$ is set to $\max(\frac{t}{T\cdot w},1.0)$ where t is current iteration and T is the number of iterations.
+- PseudoLabel: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95.
+- Pi Model: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the warmup rate of unsupervised loss $w_u$ is set to 0.4, and the ratio of unsupervised loss $\lambda_u$ is set to $\max(\frac{t}{T\cdot w},1.0)$ where t is current iteration and T is the number of iterations.
+- FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.8, and the temperature of softmax is set to 0.4.
+- FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95, and the temperature of softmax is set to 0.5.
+- FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the threshold warmup mechanism is used.
+- SoftMatch: FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
+
+
 # Benchmark Results
 The results are continuously updating.
 
