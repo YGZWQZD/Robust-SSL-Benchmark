@@ -108,14 +108,18 @@ For deep learning with Text data:
 - Roberta
 
 # Detailed Settings
+## Baselines
+- XGBoost: the parameter of use_label_encoder is set to False, the parameter eval_metric is set to "logloss".
+- FT-Transformers: the number of layers is set to 8, the dimension of tokens is set to 192, the number of heads is set to 8.
+- ResNet50: the Resnet50 pre-trained on ImageNet from torchvision.models is directly used.
+- Roberta: the pre-trained model 'roberta-base' from transformers pakage is directly used.
 ## Statistical Methods
-- SSGMM
-- TSVM
+- SSGMM: the number of iterations is set to 300.
+- TSVM: the parameter $C_l$ is set to 15, the parameter $C_u$ is set to 0.0001, The method to deal with multi-classification tasks is set to "one vs rest".
 - Label Propagation: the hyperparameters provided by scikit-learn in default are used.
 - Label Spreading: the hyperparameters provided by scikit-learn in default are used.
-- Co-Training
-- Tri-Training
-- Assemble 
+- Tri-Training: all the base learners are set to XGBoost classifier consistent with the baseline.  
+- Assemble: the number of iterations T is set to 30, all the base learners are set to XGBoost classifier consistent with the baseline.
 ## Deep Methods
 - Mean Teacher: the EMA decay is set to 0.999, the warmup rate of unsupervised loss $w_u$ is set to 0.4, and the ratio of unsupervised loss $\lambda_u$ is set to $\max(\frac{t}{T\cdot w},1.0)$ where t is current iteration and T is the number of iterations.
 - PseudoLabel: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95.
