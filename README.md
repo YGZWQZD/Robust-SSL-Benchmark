@@ -108,11 +108,26 @@ For deep learning with Text data:
 - Roberta
 
 # Detailed Settings
+## Datasets
+- Data Distributions
+  - Wine, Iris, Letter, Covertype: To construct datasets with inconsistent distributions. in each class, we calculate the center of all samples and sort these samples accoring to the distance between them and the center in ascending order. The first $n_c*(1-t)$ samples are used as source domian data ,and the rest $n_c*t$ samples are used as target domain data where $n_c$ is the number of this class. 5 or 10 perclass samples of source domain data are used as labeled data and the rest are used as test data.  
+  - Image-CLEF, VisDA: The Image-CLEF dataset consists of 3 domains, which can be combined into 6 source-domain to target-domain pairs. From the source-domain data, 100 samples are taken as labeled data. Half of the remaining source-domain samples are used as test data, while the other half is combined with the target-domain data to form an unlabeled dataset. The total number of unlabeled data $n_u$ is $min(0.5*(n_s-100),n_t)$ where $n_s$ is the number of samples in the source domain and $n_t$ is the number of samples in the target domain. For inconsistency rate t, the unlabeled dataset is combined with $n_u*(1-t)$ samples for the source domain and $n_u*t$ samples from the target domain.
+  - IMDB-Amazon: The IMDB and Amazon dataset can be consisdered as source and target domains respectly. From the source-domain data, 100 samples are taken as labeled data. Half of the remaining source-domain samples are used as test data, while the other half is combined with the target-domain data to form an unlabeled dataset. The total number of unlabeled data $n_u$ is $min(0.5*(n_s-100),n_t)$ where $n_s$ is the number of samples in the source domain and $n_t$ is the number of samples in the target domain. For inconsistency rate t, the unlabeled dataset is combined with $n_u*(1-t)$ samples for the source domain and $n_u*t$ samples from the target domain.
+- Feature Space
+  - Wine, Iris, Letter, Covertype: $50%$ of all samples can be used as source domain data, and the rest are used as target domain data. 5 or 10 samples perclass of source domain data are used as labeled data and the rest are used as test data. All target domain data randomly dropping $t*d$ features are used as unlabeled data.    
+  - CIFAR10, CIFAR100: $50%$ of all samples can be used as source domain data, and the rest are used as target domain data. 20 samples perclass of source domain data are used as labeled data. All target domain data are transformed to grey image by dropping 2 channels. For inconsistency rate t, the unlabeled dataset is combined with $n_u*(1-t)$ samples for the source domain and $n_u*t$ samples from the target domain.
+  - Agnews: $50%$ of all samples can be used as source domain data, and the rest are used as target domain data. 100 samples of source domain are used as labeled data and 
+ the rest are used as test data. 50% target domain sentences are used as IID samples and the other 50% target domain sentences which drop 50% tokens are used as OOD samples. The number of unlabeled date $n_u$ is set to $min(n_I/(1-t),n_O/t$ where $n_I$ and $n_D$ are the number of IID and OOD samples respectly. The unlabeled dataset is combined with $n_u*(1-t)$ IID and $n_u*t$ OOD samples.
+- Label Space
+  - Wine, Iris, Letter, Covertype: $50%$ of all samples can be used as source domain data, and the rest are used as target domain data. $(k+1)//2$  classes of source data are saved and the rest samples are dropped. 5 or 10 samples perclass of saved source domain data are used as labeled data and the rest are used as test data. The target domain samples with saved classes are used as IID samples and the target samples with dropped classes are used as OOD samples. The number of unlabeled date $n_u$ is set to $min(n_I/(1-t),n_O/t$ where $n_I$ and $n_D$ are the number of IID and OOD samples respectly. The unlabeled dataset is combined with $n_u*(1-t)$ IID and $n_u*t$ OOD samples.
+- Feature Space
+  - CIFAR10, CIFAR100: $(k+1)/2$ classes of all samples are used as source domain data and the rest are used as target domain data. 20 samples per class of the source domain are used as labeled data. For inconsistency rate t, the unlabeled dataset is combined with $n_t*(1-t)$ samples for the source domain and $n_t*t$ samples from the target domain where $n_t$ is the number of target domain samples.
+  - Agnews: $(k+1)/2$ classes of all samples are used as source domain data and the rest are used as target domain data. 100 samples of the source domain are used as labeled data. For inconsistency rate t, the unlabeled dataset is combined with $n_t*(1-t)$ samples for the source domain and $n_t*t$ samples from the target domain where $n_t$ is the number of target domain samples.
 ## Baselines
 - XGBoost: the parameter of use_label_encoder is set to False, the parameter eval_metric is set to "logloss".
 - FT-Transformers: the number of layers is set to 8, the dimension of tokens is set to 192, the number of heads is set to 8.
 - ResNet50: the Resnet50 pre-trained on ImageNet from torchvision.models is directly used.
-- Roberta: the pre-trained model 'roberta-base' from transformers pakage is directly used.
+- Roberta: the pre-trained model "roberta-base" from transformers pakage is directly used.
 ## Statistical Methods
 - SSGMM: the number of iterations is set to 300.
 - TSVM: the parameter $C_l$ is set to 15, the parameter $C_u$ is set to 0.0001, The method to deal with multi-classification tasks is set to "one vs rest".
@@ -128,7 +143,7 @@ For deep learning with Text data:
 - FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95, and the temperature of softmax is set to 0.5.
 - FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the threshold warmup mechanism is used.
 - SoftMatch: FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
-
+## Others
 
 # Benchmark Results
 The results are continuously updating.
