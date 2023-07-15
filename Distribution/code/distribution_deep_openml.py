@@ -65,10 +65,8 @@ def distribution_selection_label(X,y,p=0.2,random_state=None):
         permutation = rng.permutation(_X.shape[0])
         X_list.append(_X[permutation[:ceil(_X.shape[0]*p_y)]])
         y_list.append(_y[permutation[:ceil(_y.shape[0] * p_y)]])
-
     source_X = np.concatenate((X_list))
     source_y = np.concatenate((y_list))
-    # r_s=random.sample(list(range(X.shape[0])),s_X.shape[0])
     return source_X,source_y
 
 def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
@@ -130,20 +128,16 @@ augmentation={
     'strong_augmentation':strong_augmentation
 }
 
-path='../../data/numerical_only/balanced/'
 rate_list=[0,0.2,0.4,0.6,0.8,1.0]
 
 # 6 letter
 # 1596 covertype
-# 41168 jannis
-# 41169 helena
-# aloi 1592
 X,y=fetch_openml(data_id=1596,return_X_y=True)
 X=np.array(X).astype(np.float32)
 y=LabelEncoder().fit_transform(np.array(y))
 num_classes=len(np.unique(y))
 labels=labels*num_classes
-f=open("covertype"+"_deep"+'_distribution'+'_labels_'+str(labels)+'_1.csv', "w", encoding="utf-8")
+f=open("covertype"+"_deep"+'_distribution'+'_labels_'+str(labels)+'.csv', "w", encoding="utf-8")
 r = csv.DictWriter(f,['algorithm','rate','mean','std'])
 algorithms = {
     # 'FT_Transformer': Supervised(labeled_dataset=labeled_dataset, unlabeled_dataset=unlabeled_dataset,
@@ -209,9 +203,7 @@ algorithms = {
                            scheduler=None, weight_decay=1e-5)
 }
 for name,algorithm in algorithms.items():
-    print(name)
     for rate in rate_list:
-        print(rate)
         performance_list = []
         performance_list_r = []
         for _ in range(5):
@@ -237,10 +229,6 @@ for name,algorithm in algorithms.items():
         d['mean']=mean
         d['std']=std
         d['rate']=rate
-        print(d)
         r.writerow(d)
         f.flush()
 f.close()
-
-# print(dataset)
-# print('end!')
