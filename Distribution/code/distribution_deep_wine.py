@@ -54,22 +54,6 @@ args = parser.parse_args()
 labels=args.labels
 device=args.device
 
-def distribution_selection_label(X,y,p=0.2,random_state=None):
-    num_classes=len(np.unique(y))
-    X_list=[]
-    y_list=[]
-    for i in range(num_classes):
-        p_y=1-i*p/num_classes
-        _X = X[y==i]
-        _y = y[y==i]
-        rng = check_random_state(seed=random_state)
-        permutation = rng.permutation(_X.shape[0])
-        X_list.append(_X[permutation[:ceil(_X.shape[0]*p_y)]])
-        y_list.append(_y[permutation[:ceil(_y.shape[0] * p_y)]])
-    source_X = np.concatenate((X_list))
-    source_y = np.concatenate((y_list))
-    return source_X,source_y
-
 def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
     num_classes=len(np.unique(y))
     source_X_list=[]
@@ -103,10 +87,6 @@ def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
     target_y = np.concatenate((target_y_list))
     return source_X, source_y,target_X,target_y
 
-def distribution_selection_both(X,y,p=0.2,interval=0.2,random_state=None):
-    source_X, source_y, target_X, target_y=distribution_selection_condition(X,y,p,interval,random_state)
-    target_X,target_y=distribution_selection_label(target_X,target_y,p,random_state)
-    return source_X,source_y,target_X,target_y
 evaluation= Accuracy()
 
 labeled_dataset=LabeledDataset(transform=ToTensor())
@@ -198,7 +178,6 @@ algorithms = {
 for name,algorithm in algorithms.items():
     for rate in rate_list:
         performance_list = []
-        performance_list_r = []
         for _ in range(5):
             set_seed(_)
             source_X, source_y, target_X, target_y = distribution_selection_condition(X,y,p=rate,random_state=_)
