@@ -143,8 +143,12 @@ For deep learning with Text data:
 - FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95, and the temperature of softmax is set to 0.5.
 - FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the threshold warmup mechanism is used.
 - SoftMatch: FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
+## Data Augmentation
 ## Others
-
+- batch size: the batch size for imdb/amazon dataset is 8, the batch size for ag_news dataset is 16, the batch size for Image-CLEF and VisDA dataset is 32, the batch size for CIFAR10 and CIFAR100 is 64, the batch size for tabular datasets is 64.
+- iteration: the iteration for Image-CLEF and VisDA dataset is 2000, the iteration for tabular dataset is set to 10000, the iteration for ag_news and imdb/amazon is set to 5000, the iteration for CIFAR10 and CIFAR100 is 100000.
+- optimizer: the optimizer for all datasets is SGD with learning rate 5e-4 and momentum 0.9.
+- scheduler: the scheduler for all datasets is CosineWarmup with num_cycles 7/16.
 # Benchmark Results
 The results are continuously updating.
 
