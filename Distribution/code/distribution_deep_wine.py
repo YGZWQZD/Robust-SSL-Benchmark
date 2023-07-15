@@ -1,5 +1,3 @@
-# import sys; print('Python %s on %s' % (sys.version, sys.platform))
-# sys.path.extend(['C:\\JiaLH\\project\\LAMDA-SSL\\LAMDA-SSL', 'C:/JiaLH/project/LAMDA-SSL/LAMDA-SSL'])
 from xgboost import XGBClassifier
 from LAMDA_SSL.Dataset.LabeledDataset import LabeledDataset
 from LAMDA_SSL.Dataset.UnlabeledDataset import UnlabeledDataset
@@ -37,8 +35,6 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 from math import ceil
 from LAMDA_SSL.Algorithm.Classification.LabelPropagation import LabelPropagation
-# p_y=[0.9,0,1]
-# p_y=[0.95,0.85,0.75,0.65,0.55,0.45,0.35,0.25,0.15,0.05]
 def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -70,10 +66,8 @@ def distribution_selection_label(X,y,p=0.2,random_state=None):
         permutation = rng.permutation(_X.shape[0])
         X_list.append(_X[permutation[:ceil(_X.shape[0]*p_y)]])
         y_list.append(_y[permutation[:ceil(_y.shape[0] * p_y)]])
-
     source_X = np.concatenate((X_list))
     source_y = np.concatenate((y_list))
-    # r_s=random.sample(list(range(X.shape[0])),s_X.shape[0])
     return source_X,source_y
 
 def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
@@ -133,10 +127,8 @@ augmentation={
     'weak_augmentation':weak_augmentation,
     'strong_augmentation':strong_augmentation
 }
-
-path='../../data/numerical_only/balanced/'
 rate_list=[0,0.2,0.4,0.6,0.8,1.0]
-f=open("wine"+"_deep"+'_distribution'+'_labels_'+str(labels)+'_1.csv', "w", encoding="utf-8")
+f=open("wine"+"_deep"+'_distribution'+'_labels_'+str(labels)+'.csv', "w", encoding="utf-8")
 r = csv.DictWriter(f,['algorithm','rate','mean','std'])
 X,y=load_wine(return_X_y=True)
 num_classes=len(np.unique(y))
@@ -204,49 +196,23 @@ algorithms = {
                            scheduler=None, weight_decay=1e-5)
 }
 for name,algorithm in algorithms.items():
-    print(name)
     for rate in rate_list:
-        print(rate)
         performance_list = []
         performance_list_r = []
         for _ in range(5):
             set_seed(_)
-            # _labeled_X, _labeled_y, unlabeled_X, unlabeled_y=distribution_selection(X,y,0.8,_)
-            # test_X, test_y, labeled_X, labeled_y = DataSplit(stratified=True, shuffle=True,
-            #                                              random_state=_, X=_labeled_X, y=_labeled_y, size_split=0.4)
-            # trans = StandardScaler().fit(np.concatenate((labeled_X,unlabeled_X)))
-            # test_X = trans.transform(test_X)
-            # labeled_X=trans.transform(labeled_X)
-            # unlabeled_X = trans.transform(unlabeled_X)
             source_X, source_y, target_X, target_y = distribution_selection_condition(X,y,p=rate,random_state=_)
             labeled_X, labeled_y, test_X, test_y = DataSplit(stratified=True, shuffle=True, random_state=_, X=source_X, y=source_y, size_split=labels)
             unlabeled_X,unlabeled_y=target_X,target_y
-            # trans = StandardScaler().fit(train_X)
-            # test_X = trans.transform(test_X)
-            # train_X=trans.transform(train_X)
-            #
-            # labeled_X, labeled_y, unlabeled_X, unlabeled_y = DataSplit(stratified=True, shuffle=True,
-            #                                                            random_state=_, X=_train_X,
-            #                                                            y=_train_y, size_split=labels)
-            # unlabeled_X, unlabeled_y = distribution_selection_condition(unlabeled_X, unlabeled_y, p=rate, seed=_)
-            # unlabeled_X, unlabeled_y = random_selection(unlabeled_X, unlabeled_y)
-            # print(unlabeled_X.shape)
-
-            # print(unlabeled_X.shape)
             trans = StandardScaler().fit(labeled_X)
             test_X = trans.transform(test_X)
             labeled_X=trans.transform(labeled_X)
             trans = StandardScaler().fit(unlabeled_X)
             unlabeled_X = trans.transform(unlabeled_X)
-            print(unlabeled_X.shape)
             algorithm_1=copy.deepcopy(algorithm)
             pred_y = algorithm_1.fit(labeled_X, labeled_y, unlabeled_X).predict(test_X)
             performance = Accuracy().scoring(test_y, pred_y)
             performance_list.append(performance)
-            #performance_r = Accuracy().scoring(test_y, pred_y_1)
-            #performance_list_r.append(performance_r)
-            print(performance)
-            #print(performance_r)
         performance_list=np.array(performance_list)
         mean=performance_list.mean()
         std=performance_list.std()
@@ -255,20 +221,6 @@ for name,algorithm in algorithms.items():
         d['mean']=mean
         d['std']=std
         d['rate']=rate
-        print(d)
         r.writerow(d)
         f.flush()
-        #performance_list_r=np.array(performance_list_r)
-        #mean_r=performance_list_r.mean()
-        #std_r=performance_list_r.std()
-        #d={}
-        #d['algorithm']=name+'random'
-        #d['mean']=mean_r
-        #d['std']=std_r
-        #d['rate']=rate
-        #print(d)
-        #r.writerow(d)
 f.close()
-
-# print(dataset)
-# print('end!')
