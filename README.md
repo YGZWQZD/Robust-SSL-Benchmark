@@ -144,6 +144,9 @@ For deep learning with Text data:
 - FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the threshold warmup mechanism is used.
 - SoftMatch: FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
 ## Data Augmentation
+- ag_news and imdb/amazon: the weak and strong augmentations are synonyms replacement with 1 and 5 words respectively.
+- wine, iris, letter, covertype: the weak and strong augmentations are Gaussian noise with 0.1 and 0.2 rates respectively.
+- CIFAR10, CIFAR100, VisDA, Image-CLEF: the weak augmentation is RandomHorizontalFlip, the strong augmentation is RandAugment.
 ## Others
 - batch size: the batch size for imdb/amazon dataset is 8, the batch size for ag_news dataset is 16, the batch size for Image-CLEF and VisDA dataset is 32, the batch size for CIFAR10 and CIFAR100 is 64, the batch size for tabular datasets is 64.
 - iteration: the iteration for Image-CLEF and VisDA dataset is 2000, the iteration for tabular dataset is set to 10000, the iteration for ag_news and imdb/amazon is set to 5000, the iteration for CIFAR10 and CIFAR100 is 100000.
