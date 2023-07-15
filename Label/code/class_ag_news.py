@@ -1,6 +1,5 @@
 import re
 import os
-#from LAMDA_SSL.Augmentation.Tabular.Noise import Noise
 from LAMDA_SSL.Evaluation.Classifier.Accuracy import Accuracy
 from LAMDA_SSL.Algorithm.Classification.Supervised import Supervised
 from LAMDA_SSL.Algorithm.Classification.PiModel import PiModel
@@ -39,7 +38,6 @@ import argparse
 from LAMDA_SSL.Transform.ToImage import ToImage
 import csv
 from LAMDA_SSL.Split.DataSplit import DataSplit
-#from torchtext.datasets import AG_NEWS
 
 import copy
 import numpy as np
@@ -53,7 +51,6 @@ batch_size = args.batch_size
 iteration= args.iteration
 labels=args.labels
 device=args.device
-domain=['books','dvd']#,'electronics']#,'kitchen_&_housewares']
 def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -68,10 +65,8 @@ def set_seed(seed):
 
 
 evaluation= Accuracy()
-# rate_list=[0.6,0.8,1.0]
-rate_list=[0.2]
-# rate_list=[0]
-f=open('ag_news'+'_class'+'_labels_'+str(labels)+'_103.csv', "w", encoding="utf-8")
+rate_list=[0,0.2,0.4,0.6,0.8,1.0]
+f=open('ag_news'+'_class'+'_labels_'+str(labels)+'.csv', "w", encoding="utf-8")
 r = csv.DictWriter(f,['algorithm','rate','mean','std'])
 
 def get_mena_std(imgs):
@@ -97,22 +92,15 @@ def load_agnews_dataset(path):
     with open(path, 'r', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter=',')
         for row in reader:
-            label = int(row[0]) - 1  # 将标签从1到4映射为0到3
-            text = ' '.join(row[1:])  # 将文本列合并为一个字符串
+            label = int(row[0]) - 1
+            text = ' '.join(row[1:]) 
             sum_len+=len(text)
             num+=1
             texts.append(text)
             labels.append(label)
     print(sum_len/num)
     return texts, labels
-'''
-train_dataset, test_dataset = AG_NEWS(root='.data', split=('train', 'test'))
 
-train_texts = [preprocess_text(item[1]) for item in train_dataset]
-test_texts = [preprocess_text(item[1]) for item in test_dataset]
-train_labels = [int(item[0]) - 1 for item in train_dataset]
-test_labels = [int(item[0]) - 1 for item in test_dataset]
-'''
 train_path = 'train.csv'
 test_path='test.csv'
 
@@ -301,28 +289,14 @@ for rate in rate_list:
             all_labeled_X=train_texts
             all_labeled_y=np.array(train_labels)
             num_classes=np.unique(all_labeled_y).shape[0]
-            #print(np.unique(labeled_y))
             test_X=test_texts
             test_y=np.array(test_labels)
-            #valid_X=dataset.valid_X
-            #valid_y=np.array(dataset.valid_y)
-            #S_X, S_y = source_dataset.imgs, source_dataset.data_labels
-            #T_X, T_y = target_dataset.imgs, target_dataset.data_labels
             S_X, S_y = [all_labeled_X[_] for _ in range(len(all_labeled_X)) if all_labeled_y[_] < int(num_classes / 2)], all_labeled_y[all_labeled_y <int( num_classes / 2)]
             T_X, T_y = [all_labeled_X[_] for _ in range(len(all_labeled_X)) if all_labeled_y[_] >= int(num_classes / 2)], all_labeled_y[all_labeled_y >= int(num_classes / 2)]
             test_X, test_y = [test_X[_] for _ in range(len(test_X)) if test_y[_] < int(num_classes / 2)], test_y[test_y <int( num_classes / 2)]
-            # print(target_X.shape)
-            print('S_X')
-            print(len(S_X))
             labeled_X, labeled_y, _S_X, _S_y = DataSplit(stratified=True, shuffle=True, random_state=seed,
                                                              X=S_X, y=S_y, size_split=labels)
-            print('labeled_X')
-            print(len(labeled_X))
-
             unlabels = len(T_X)
-            #print(S_X.shape)
-            print('T_X')
-            print(len(T_X))
             target_X_in, target_y_in, target_X_in_r, target_y_in_r = DataSplit(stratified=True,
                                                                                shuffle=True, random_state=seed,
                                                                                X=S_X, y=S_y,
@@ -335,10 +309,6 @@ for rate in rate_list:
                                                                                    y=T_y,
                                                                                    size_split=int(
                                                                                    unlabels * rate))
-            print('target_X_in')
-            print(len(target_X_in))
-            print('target_X_out')                                                   
-            print(len(target_X_out))
             if rate==0:
                 unlabeled_X = target_X_in
                 unlabeled_y = target_y_in
@@ -357,11 +327,6 @@ for rate in rate_list:
             algorithm_1.valid_dataset = copy.deepcopy(valid_dataset)
             test_dataset = UnlabeledDataset(pre_transform=test_pre_transform, transform=transform)
             algorithm_1.test_dataset = copy.deepcopy(test_dataset)
-            print(len(labeled_X))
-            print(len(labeled_y))
-            print(len(unlabeled_X))
-            print(len(test_X))
-            print(len(test_y))
             pred_y = algorithm_1.fit(labeled_X, labeled_y, unlabeled_X).predict(test_X)
             performance = Accuracy().scoring(test_y, pred_y)
             performance_list.append(performance)
@@ -373,7 +338,6 @@ for rate in rate_list:
         d['mean'] = mean
         d['std'] = std
         d['rate'] = rate
-        print(d)
         r.writerow(d)
         f.flush()
 f.close()
