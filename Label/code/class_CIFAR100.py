@@ -43,12 +43,14 @@ import copy
 import numpy as np
 from LAMDA_SSL.Dataset.Vision.CIFAR100 import CIFAR100
 parser = argparse.ArgumentParser()
+parser.add_argument('--root', type=str, default='./data/cifar-100-python')
 parser.add_argument('--dataset',type=str,default='cifar-100')
 parser.add_argument('--batch_size', type=int, default=64)
 parser.add_argument('--iteration', type=int, default=10000)
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--labels', type=int, default=1000)
 args = parser.parse_args()
+root=args.root
 dataset=args.dataset
 batch_size = args.batch_size
 iteration= args.iteration
@@ -91,7 +93,7 @@ def worker_init(worked_id):
     random.seed(worker_seed)
 
 
-dataset=CIFAR100(root='./data/cifar-100-python',labeled_size=None,stratified=False,shuffle=False,download=True,default_transforms=True)
+dataset=CIFAR100(root=root,labeled_size=None,stratified=False,shuffle=False,download=True,default_transforms=True)
 num_classes=100
 for rate in rate_list:
         train_pre_transform = Pipeline([('ToImage',ToImage())])
