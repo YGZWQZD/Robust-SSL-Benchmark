@@ -1,5 +1,3 @@
-# import sys; print('Python %s on %s' % (sys.version, sys.platform))
-# sys.path.extend(['C:\\JiaLH\\project\\LAMDA-SSL\\LAMDA-SSL', 'C:/JiaLH/project/LAMDA-SSL/LAMDA-SSL'])
 from xgboost import XGBClassifier
 from LAMDA_SSL.Dataset.LabeledDataset import LabeledDataset
 from LAMDA_SSL.Dataset.UnlabeledDataset import UnlabeledDataset
@@ -30,8 +28,6 @@ import numpy as np
 from math import ceil
 from LAMDA_SSL.Algorithm.Classification.LabelPropagation import LabelPropagation
 from sklearn.utils import check_random_state
-# p_y=[0.9,0,1]
-# p_y=[0.95,0.85,0.75,0.65,0.55,0.45,0.35,0.25,0.15,0.05]
 def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -48,41 +44,6 @@ parser.add_argument('--labels', type=int, default=30)
 args = parser.parse_args()
 
 labels=args.labels
-# def distribution_selection_y(X,y,p):
-#     r=np.random.random(X.shape[0])
-#     s = []
-#     # print(X.shape)
-#     for _ in range(X.shape[0]):
-#         if r[_]<=p_y[int(y[_])]:
-#             s.append(1)
-#         else:
-#             s.append(0)
-#     s=np.array(s)
-#     s_X=X[s==1]
-#     # print(s_X.shape)
-#     s_y=y[s==1]
-#     # r_s=random.sample(list(range(X.shape[0])),s_X.shape[0])
-#     r_X=X[s==0]
-#     r_y=y[s==0]
-#     return s_X,s_y,r_X,r_y
-
-def distribution_selection_label(X,y,p=0.2,random_state=None):
-    num_classes=len(np.unique(y))
-    X_list=[]
-    y_list=[]
-    for i in range(num_classes):
-        p_y=1-i*p/num_classes
-        _X = X[y==i]
-        _y = y[y==i]
-        rng = check_random_state(seed=random_state)
-        permutation = rng.permutation(_X.shape[0])
-        X_list.append(_X[permutation[:ceil(_X.shape[0]*p_y)]])
-        y_list.append(_y[permutation[:ceil(_y.shape[0] * p_y)]])
-
-    source_X = np.concatenate((X_list))
-    source_y = np.concatenate((y_list))
-    # r_s=random.sample(list(range(X.shape[0])),s_X.shape[0])
-    return source_X,source_y
 
 def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
     num_classes=len(np.unique(y))
@@ -117,88 +78,6 @@ def distribution_selection_condition(X,y,p=0.2,interval=0.2,random_state=None):
     target_y = np.concatenate((target_y_list))
     return source_X, source_y,target_X,target_y
 
-def distribution_selection_both(X,y,p=0.2,interval=0.2,random_state=None):
-    source_X, source_y, target_X, target_y=distribution_selection_condition(X,y,p,interval,random_state)
-    target_X,target_y=distribution_selection_label(target_X,target_y,p,random_state)
-    return source_X,source_y,target_X,target_y
-# def distribution_selection_condition(X,y,p=0.2,seed=None,num_classes=2):
-#     labeled_X_list=[]
-#     unlabeled_X_list=[]
-#     labeled_y_list=[]
-#     unlabeled_y_list=[]
-#     for _ in range(num_classes):
-#         _X = X[y==_]
-#         _y = y[y==_]
-#         mean_X=np.mean(_X,axis=0)
-#         dis=[]
-#         for _ in range(_X.shape[0]):
-#             s = np.linalg.norm(mean_X - _X[_])
-#             dis.append(s)
-#         dis=np.array(dis)
-#         index=dis.argsort()
-#         index_domain_1,index_domain_2=index[:ceil(index.shape[0]*0.5)],index[ceil(index.shape[0]*0.5):]
-#         rng = check_random_state(seed=seed)
-#         permutation = rng.permutation(ceil(index_domain_1.shape[0]))
-#         index_domain_1_labeled, index_domain_1_unlabeled = index_domain_1[permutation[:ceil(index_domain_1.shape[0]*p)]],\
-#                                                            index_domain_1[permutation[ceil(index_domain_1.shape[0]*p):]]
-#         permutation = rng.permutation(ceil(index_domain_2.shape[0]))
-#         index_domain_2_unlabeled, index_domain_2_labeled = index_domain_2[permutation[:ceil(index_domain_2.shape[0] * p)]], \
-#                                                            index_domain_2[permutation[ceil(index_domain_2.shape[0] * p):]]
-#         labeled_index= np.concatenate((index_domain_1_labeled,index_domain_2_labeled))
-#         unlabeled_index=np.concatenate((index_domain_1_unlabeled, index_domain_2_unlabeled))
-#         labeled_X_list.append(_X[labeled_index])
-#         unlabeled_X_list.append(_X[unlabeled_index])
-#         labeled_y_list.append(_y[labeled_index])
-#         unlabeled_y_list.append(_y[unlabeled_index])
-#     unlabeled_X = np.concatenate((unlabeled_X_list))
-#     unlabeled_y = np.concatenate((unlabeled_y_list))
-#     return unlabeled_X, unlabeled_y
-
-# def distribution_selection_class(X,y,p=0.2,seed=None):
-#     p_y=[p,1-p]
-#     r=np.random.random(X.shape[0])
-#     s = []
-#     # print(X.shape)
-#     for _ in range(X.shape[0]):
-#         if r[_]<=p_y[int(y[_])]:
-#             s.append(1)
-#         else:
-#             s.append(0)
-#     s=np.array(s)
-#     s_X=X[s==1]
-#     # print(s_X.shape)
-#     s_y=y[s==1]
-#     # r_s=random.sample(list(range(X.shape[0])),s_X.shape[0])
-#     return s_X,s_y
-
-# def distribution_selection_both(X,y,p=0.2,seed=None):
-#     X,y=distribution_selection_class(X,y,p=p)
-#     X,y=distribution_selection_condition(X,y,p=p,seed=seed)
-#     return X,y
-#     # print(X.shape)
-    # print(y.shape)
-    # mean_X=np.mean(X,axis=0)
-    # dis=[]
-    # for _ in range(X.shape[0]):
-    #     s = np.linalg.norm(mean_X - X[_])
-    #     dis.append(s)
-    # dis=np.array(dis)
-    # index=dis.argsort()
-    # index_domain_1,index_domain_2=index[:ceil(index.shape[0]*0.5)],index[ceil(index.shape[0]*0.5):]
-    # rng = check_random_state(seed=random_state)
-    # permutation = rng.permutation(ceil(index_domain_1.shape[0]))
-    # index_domain_1_labeled, index_domain_1_unlabeled = index_domain_1[permutation[:ceil(index_domain_1.shape[0]*p)]],\
-    #                                                    index_domain_1[permutation[ceil(index_domain_1.shape[0]*p):]]
-    # permutation = rng.permutation(ceil(index_domain_2.shape[0]))
-    # index_domain_2_unlabeled, index_domain_2_labeled = index_domain_2[permutation[:ceil(index_domain_2.shape[0] * p)]], \
-    #                                                    index_domain_2[permutation[ceil(index_domain_2.shape[0] * p):]]
-    # labeled_index = np.concatenate((index_domain_1_labeled,index_domain_2_labeled))
-    # unlabeled_index = np.concatenate((index_domain_1_unlabeled, index_domain_2_unlabeled))
-    # labeled_X, unlabeled_X = X[labeled_index], X[unlabeled_index]
-    # labeled_y, unlabeled_y = y[labeled_index], y[unlabeled_index]
-    # return labeled_X, labeled_y, unlabeled_X, unlabeled_y
-
-
 evaluation= Accuracy()
 
 labeled_dataset=LabeledDataset(transform=ToTensor())
@@ -220,7 +99,6 @@ augmentation={
     'strong_augmentation':strong_augmentation
 }
 
-path='../../data/numerical_only/balanced/'
 rate_list=[0,0.2,0.4,0.6,0.8,1.0]
 f=open("iris"+"_statistical"+'_distribution_condition'+'_labels_'+str(labels)+'.csv', "w", encoding="utf-8")
 r = csv.DictWriter(f,['algorithm','rate','mean','std'])
@@ -243,66 +121,27 @@ for name,algorithm in algorithms.items():
         performance_list_r = []
         for _ in range(5):
             set_seed(_)
-            # _labeled_X, _labeled_y, unlabeled_X, unlabeled_y=distribution_selection(X,y,0.8,_)
-            # test_X, test_y, labeled_X, labeled_y = DataSplit(stratified=True, shuffle=True,
-            #                                              random_state=_, X=_labeled_X, y=_labeled_y, size_split=0.4)
-            # trans = StandardScaler().fit(np.concatenate((labeled_X,unlabeled_X)))
-            # test_X = trans.transform(test_X)
-            # labeled_X=trans.transform(labeled_X)
-            # unlabeled_X = trans.transform(unlabeled_X)
             source_X, source_y, target_X, target_y = distribution_selection_condition(X,y,p=rate,random_state=_)
             labeled_X, labeled_y, test_X, test_y = DataSplit(stratified=True, shuffle=True, random_state=_, X=source_X, y=source_y, size_split=labels)
             unlabeled_X,unlabeled_y=target_X,target_y
-            # trans = StandardScaler().fit(train_X)
-            # test_X = trans.transform(test_X)
-            # train_X=trans.transform(train_X)
-            #
-            # labeled_X, labeled_y, unlabeled_X, unlabeled_y = DataSplit(stratified=True, shuffle=True,
-            #                                                            random_state=_, X=_train_X,
-            #                                                            y=_train_y, size_split=labels)
-            # unlabeled_X, unlabeled_y = distribution_selection_condition(unlabeled_X, unlabeled_y, p=rate, seed=_)
-            # unlabeled_X, unlabeled_y = random_selection(unlabeled_X, unlabeled_y)
-            # print(unlabeled_X.shape)
-
-            # print(unlabeled_X.shape)
             trans = StandardScaler().fit(labeled_X)
             test_X = trans.transform(test_X)
             labeled_X=trans.transform(labeled_X)
             trans = StandardScaler().fit(unlabeled_X)
             unlabeled_X = trans.transform(unlabeled_X)
-            print(unlabeled_X.shape)
 
             if name is 'XGBClassifier':
-                # l=labeled_X.shape[0]
-                # u=unlabeled_X.shape[0]
-                # sample_weight = np.zeros(l + u)
-                # for i in range(l):
-                #         sample_weight[i] = 0.9*(l+u)/l
-                # for i in range(u):
-                #         sample_weight[i + l] = 0.1*(l+u)/u
-                # ulb_y=KNeighborsClassifier().fit(labeled_X,labeled_y).predict(unlabeled_X)
-                # algorithm = algorithm.fit(np.concatenate((labeled_X,unlabeled_X)), np.concatenate((labeled_y,ulb_y)),sample_weight=sample_weight)
                 algorithm = algorithm.fit(labeled_X, labeled_y)
                 pred_y = algorithm.predict(test_X)
             elif name in Transductive:
                 algorithm_1=copy.deepcopy(algorithm)
-                #algorithm_2=copy.deepcopy(algorithm)
                 algorithm_1 = algorithm_1.fit(labeled_X, labeled_y, unlabeled_X)
                 pred_y = algorithm_1.predict(test_X, Transductive=False)
-                #algorithm_2 = algorithm_2.fit(labeled_X, labeled_y, np.random.rand(unlabeled_X.shape[0], unlabeled_X.shape[1]))
-                #pred_y_1 = algorithm_2.predict(test_X, Transductive=False)
             else:
                 algorithm_1=copy.deepcopy(algorithm)
                 pred_y = algorithm_1.fit(labeled_X, labeled_y, unlabeled_X).predict(test_X)
-                #algorithm_2=copy.deepcopy(algorithm)
-                #algorithm_2 = algorithm_2.fit(labeled_X, labeled_y, np.random.rand(unlabeled_X.shape[0], unlabeled_X.shape[1]))
-                #pred_y_1 = algorithm_2.predict(test_X)
             performance = Accuracy().scoring(test_y, pred_y)
             performance_list.append(performance)
-            #performance_r = Accuracy().scoring(test_y, pred_y_1)
-            #performance_list_r.append(performance_r)
-            print(performance)
-            #print(performance_r)
         performance_list=np.array(performance_list)
         mean=performance_list.mean()
         std=performance_list.std()
@@ -311,19 +150,5 @@ for name,algorithm in algorithms.items():
         d['mean']=mean
         d['std']=std
         d['rate']=rate
-        print(d)
         r.writerow(d)
-        #performance_list_r=np.array(performance_list_r)
-        #mean_r=performance_list_r.mean()
-        #std_r=performance_list_r.std()
-        #d={}
-        #d['algorithm']=name+'random'
-        #d['mean']=mean_r
-        #d['std']=std_r
-        #d['rate']=rate
-        #print(d)
-        #r.writerow(d)
 f.close()
-
-# print(dataset)
-# print('end!')
