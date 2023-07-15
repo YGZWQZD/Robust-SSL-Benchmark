@@ -1,9 +1,7 @@
 from datasets import load_dataset
 
-# 加载Amazon商品评论数据集
 dataset = load_dataset('imdb')
 
-# 获取训练集和测试集
 source_x, source_y = dataset['train']['text'],dataset['train']['label']
 test_x,test_y= dataset['test']['text'],dataset['test']['label']
 
@@ -12,14 +10,12 @@ num=0
 for text in source_x:
     sum_len+=len(text)
     num+=1
-print(sum_len/num)
 
 dataset = load_dataset('amazon_polarity')
 target_x, target_y = dataset['content']['text'],dataset['train']['label']
 for text in target_x:
     sum_len+=len(text)
     num+=1
-print(sum_len/num)
 
 import re
 import os
@@ -71,7 +67,7 @@ args = parser.parse_args()
 batch_size = args.batch_size
 iteration= args.iteration
 labels=args.labels
-domain=['books','dvd']#,'electronics']#,'kitchen_&_housewares']
+
 def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -88,7 +84,7 @@ def set_seed(seed):
 device='cuda:0'
 evaluation= Accuracy()
 rate_list=[1.0]
-f=open('amazon_yelp'+'_distribution'+'_labels_'+str(labels)+'_17.csv', "w", encoding="utf-8")
+f=open('amazon_yelp'+'_distribution'+'_labels_'+str(labels)+'.csv', "w", encoding="utf-8")
 r = csv.DictWriter(f,['algorithm','rate','mean','std'])
 
 def get_mena_std(imgs):
@@ -106,38 +102,6 @@ def worker_init(worked_id):
     np.random.seed(worker_seed)
     random.seed(worker_seed)
 
-
-# with open(os.path.join('./amazon',source,'positive.review'), 'r') as file:
-#     source_positive_data = file.read()
-# with open(os.path.join('./amazon',source,'negative.review'), 'r') as file:
-#     source_negative_data = file.read()
-# with open(os.path.join('./amazon',target,'positive.review'), 'r') as file:
-#     target_positive_data = file.read()
-# with open(os.path.join('./amazon',target,'negative.review'), 'r') as file:
-#     target_negative_data = file.read()
-
-# source_positive_data = re.findall(r'<review_text>(.*?)</review_text>', source_positive_data, re.DOTALL)
-# source_negative_data = re.findall(r'<review_text>(.*?)</review_text>', source_negative_data, re.DOTALL)
-# target_positive_data = re.findall(r'<review_text>(.*?)</review_text>', target_positive_data, re.DOTALL)
-# target_negative_data = re.findall(r'<review_text>(.*?)</review_text>', target_negative_data, re.DOTALL)        
-# source_x=[]
-# source_y=[]
-# target_x=[]
-# target_y=[]
-# for review in source_positive_data:
-#     source_x.append(review.strip())
-#     source_y.append(1)
-# for review in source_negative_data:
-#     source_x.append(review.strip())
-#     source_y.append(0)
-# for review in target_positive_data:
-#     target_x.append(review.strip())
-#     target_y.append(1)
-# for review in target_negative_data:
-#     target_x.append(review.strip())
-#     target_y.append(0)
-# print(len(source_x))
-# print(len(target_x))
 for rate in rate_list:
     train_pre_transform = None
     valid_pre_transform = None
@@ -362,12 +326,9 @@ for rate in rate_list:
         std = performance_list.std()
         d = {}
         d['algorithm'] = name
-        #d['source'] = source
-        #d['target'] = target
         d['mean'] = mean
         d['std'] = std
         d['rate'] = rate
-        print(d)
         r.writerow(d)
         f.flush()
 f.close()
