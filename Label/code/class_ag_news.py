@@ -98,7 +98,6 @@ def load_agnews_dataset(path):
             num+=1
             texts.append(text)
             labels.append(label)
-    print(sum_len/num)
     return texts, labels
 
 train_path = 'train.csv'
@@ -107,9 +106,7 @@ test_path='test.csv'
 #dataset = load_dataset('ag_news')
 
 train_texts, train_labels = load_agnews_dataset(train_path)
-#dataset['train']['text'],dataset['train']['label']#load_agnews_dataset(train_path)
 test_texts, test_labels = load_agnews_dataset(test_path) 
-#dataset['test']['text'],dataset['test']['label']#load_agnews_dataset(test_path)
 
 num_classes=4
 
