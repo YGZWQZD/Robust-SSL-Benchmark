@@ -109,7 +109,7 @@ For deep learning with Text data:
 
 # Detailed Settings
 ## Datasets
-- Data Distributions
+- Data Distribution
   - Wine, Iris, Letter, Covertype: To construct datasets with inconsistent distributions. in each class, we calculate the center of all samples and sort these samples accoring to the distance between them and the center in ascending order. The first $n_c*(1-t)$ samples are used as source domian data ,and the rest $n_c*t$ samples are used as target domain data where $n_c$ is the number of this class. 5 or 10 perclass samples of source domain data are used as labeled data and the rest are used as test data.  
   - Image-CLEF, VisDA: The Image-CLEF dataset consists of 3 domains, which can be combined into 6 source-domain to target-domain pairs. From the source-domain data, 100 samples are taken as labeled data. Half of the remaining source-domain samples are used as test data, while the other half is combined with the target-domain data to form an unlabeled dataset. The total number of unlabeled data $n_u$ is $min(0.5*(n_s-100),n_t)$ where $n_s$ is the number of samples in the source domain and $n_t$ is the number of samples in the target domain. For inconsistency rate t, the unlabeled dataset is combined with $n_u*(1-t)$ samples for the source domain and $n_u*t$ samples from the target domain.
   - IMDB-Amazon: The IMDB and Amazon dataset can be consisdered as source and target domains respectly. From the source-domain data, 100 samples are taken as labeled data. Half of the remaining source-domain samples are used as test data, while the other half is combined with the target-domain data to form an unlabeled dataset. The total number of unlabeled data $n_u$ is $min(0.5*(n_s-100),n_t)$ where $n_s$ is the number of samples in the source domain and $n_t$ is the number of samples in the target domain. For inconsistency rate t, the unlabeled dataset is combined with $n_u*(1-t)$ samples for the source domain and $n_u*t$ samples from the target domain.
@@ -142,7 +142,7 @@ For deep learning with Text data:
 - FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.8, and the temperature of softmax is set to 0.4.
 - FixMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the threshold is set to 0.95, and the temperature of softmax is set to 0.5.
 - FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the threshold warmup mechanism is used.
-- SoftMatch: FlexMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
+- SoftMatch: the ratio of unsupervised loss $\lambda_u$ is set to 1.0, the basic threshold is set to 0.95, the temperature of softmax is set to 0.5, and the distribution alignment mechanism is used.
 ## Data Augmentation
 - ag_news and imdb/amazon: the weak and strong augmentations are synonyms replacement with 1 and 5 words respectively.
 - wine, iris, letter, covertype: the weak and strong augmentations are Gaussian noise with 0.1 and 0.2 rates respectively.
