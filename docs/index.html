@@ -9,16 +9,16 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa; /* 更亮的背景色 */
         }
         header {
-            background-color: #333;
+            background-color: #20c997; /* 深蓝色 */
             color: #fff;
             padding: 10px 0;
             text-align: center;
         }
         nav {
-            background-color: #666;
+            background-color: #17a2b8; /* 青色 */
             color: #fff;
             padding: 10px 0;
             text-align: center;
@@ -41,7 +41,7 @@
             padding: 20px;
         }
         footer {
-            background-color: #333;
+            background-color: #343a40; /* 深灰色 */
             color: #fff;
             text-align: center;
             padding: 10px 0;
@@ -50,10 +50,12 @@
             width: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
 </head>
 <body>
     <header>
-        <h1>Realistic Evaluation of Semi-supervised Learning Algorithms in Open Environments</h1>
+        <h1>Realistic Evaluation of Semi-supervised <br>Learning Algorithms in Open Environments</h1>
     </header>
     <nav>
         <ul>
@@ -68,9 +70,180 @@
 <p>We have corrected the misconceptions in previous research on robust SSL and reshaped the research framework of robust SSL by introducing new analytical methods and associated evaluation metrics from a dynamic perspective. We build a benchmark that encompasses three types of open environments: inconsistent data distributions, inconsistent label spaces, and inconsistent feature spaces to assess the performance of widely used statistical and deep SSL algorithms with tabular, image, and text datasets. </p>
 
 <p>This benchmark is open and continuously updated. To avoid unnecessary disputes, please understand that due to limited computational resources, the current evaluation scope is limited and cannot fully represent the performance of SSL algorithms in real-world applications. We welcome everyone to contribute additional experimental setups, codes, and results to improve this benchmark.</p>
-    </main>
-    <footer>
+    
+<h2>Analytical Method</h2>
+<p>Studying the robustness of algorithms requires a dynamic perspective to investigate the change in algorithm performance with varying degrees of data inconsistency. we denote the degree of inconsistency between labeled and unlabeled data as t and describe robustness as the overall adaptability of an algorithm or model to all degrees of inconsistency t. We denote the function that describes the change in model accuracy with inconsistency as $Acc_T$. We plot the function $Acc_T(t)$ and refer to it as the Robustness Analysis Curve (RAC), which is used to analyze the robustness of performance with respect to the changes in the degree of inconsistency t. The RAC represents the correspondence between the inconsistency $t$ on the horizontal axis and the corresponding $Acc_T(t)$ on the vertical axis. For example:</p>
+
+
+
+<!-- <h2>Metrics</h2>
+<p>In order to provide a more comprehensive evaluation of SSL algorithms, we have defined multiple evaluation metrics to assess the robustness of these algorithms as unlabeled data varies. Unlike previous classical SSL evaluations that only assess $Acc_T(0)$ and previous robust SSL evaluations that only assess $Acc_T(t)$ for a specific t, our established evaluation framework based on RAC can reflect the global robustness.</p>
+<ul>
+<li>Area Under the Curve (AUC): RAC represents the performance variation with the degree of inconsistency. Therefore, the area under RAC reflects the overall performance of an algorithm or model under different degrees of inconsistency, considering each level of inconsistency equally important.
+
+    <div id="math-display">\[ AUC(Acc_T) =\int_0^1 Acc_T(t)dt\]</div></li>
+
+<li>Expected Accuracy (EA): In many scenarios, due to the varying probabilities of different inconsistency levels t, we cannot assume that different t values are equally important. Therefore, we extend the AUC to the expected accuracy when t follows a distribution $P_T(t)$. EA is equivalent to the inner product of functions $Acc_T$ and $P_T$.AUC is a special case of EA
+
+    <div id="math-display">EA(P_T,Acc_T) = \langle P_T,Acc_T\rangle=\int_0^1 P_T(t)Acc_T(t)dt</div></li>
+
+<li>Worst-case Accuracy (WA): In robust SSL, we aim for the model to perform reasonably well even in the worst-case scenarios. This can be seen as a maximization of the minimum performance, which leads us to define WA to reflect the algorithm's performance under the worst conditions.
+
+    <div id="math-display">WA(Acc_T)=\min_{t\in[0,1]} Acc_T(t)</div></li>
+
+<li>Expected Variation Magnitude (EVM): In robust SSL, we aim for algorithms to maintain relatively stable performance across different levels of inconsistency. Therefore, we define EVM to measure the average magnitude of performance changes. This metric helps assess the average change in algorithm performance across varying levels of inconsistency. In the formula, $Acc_T'$ represents the derivative of $Acc_T$.
+
+    <div id="math-display">EVM(Acc_T) =\int_0^1 |Acc_T'(t)|dt</div></li>
+
+<li>Variation Stability (VS): To measure the stability of change in performance, we define VS to assess how steadily the accuracy changes with $t$. VS, in fact, is the variance of the first derivative of $ACC_T$. The higher the VS, the more random the trend of change.
+
+    <div id="math-display">VS(Acc_T)=\int_0^1 [Acc_T'(t)-(\int_0^1Acc_T'(t)dt)]^2dt</div></li>
+
+<li>Robust Correlation Coefficient (RCC): We not only pay attention to the magnitude of performance changes with inconsistency but also care about the direction of these changes. To address this, we define a metric called RCC, which represents the Pearson Correlation Coefficient  between accuracy and inconsistency $t$.
+
+    <div id="math-display">RCC(Acc_T)=\frac{\int_0^1 Acc_T(t)\cdot t dt - \int_0^1 Acc_T(t) dt}{\sqrt{\int_0^1 t^2dt -1}\cdot\sqrt{\int_0^1 Acc_T^2(t)dt-(\int_0^1 Acc_T(t) dt)^2}}</div></li>
+</ul>
+<p>Overall, in open environments, we analyze RAC to reflect the performance of an algorithm or model as the inconsistency between unlabeled and labeled data changes. EA and its special case AUC reflect the overall performance. WA reflects the worst-case performance. EVM reflects the magnitude of performance variation. VS reflects the stability of the performance variation. RCC reflects the overall trend of performance variation. These metrics are all defined based on accuracy and can be extended to other different metrics by replacing the function $Acc_T$ and following the same procedure of plotting the curve and calculating the metrics according to the respective formulas.</p>
+ -->
+
+<h2>Algorithms Used for Evaluation</h2>
+
+The used algorithms are continuously updating.
+
+<h3>Statistical Semi-Supervised Learning Algorithms</h3>
+<ul>
+    <li>Semi-Supervised Gaussian Mixture Model (SSGMM)</li>
+
+    <li>TSVM</li>
+
+    <li>Label Propagation</li>
+
+    <li>Label Spreading</li>
+
+    <li>Tri-Training</li>
+
+    <li>Assemble</li>
+</ul>
+<h3>Deep Semi-Supervised Learning Algorithms</h3>
+<ul>
+<li>Pseudo Label</li>
+
+<li>PiModel</li>
+
+<li>MeanTeacher</li>
+<li>VAT</li>
+<li>ICT</li>
+
+<li>UDA</li>
+
+<li>FixMatch</li>
+
+<li>FlexMatch</li>
+<li>FreeMatch</li>
+<li>SoftMatch</li>
+<li>UASD</li>
+<li>CAFA</li>
+<li>MTCF</li>
+<li>Fix-A-Step</li>
+</ul>
+<h3>Baseline Model</h3>
+<ul>
+    <li>For statistical learning with tabular data: XGBoost</li>
+
+    <li>For deep learning with tabular data: FT-Transformer</li>
+
+    <li>For deep learning with Image data: ResNet50</li>
+
+    <li>For deep learning with Text data: Roberta</li>
+</ul>
+<h2>Benchmark Results</h3>
+<!-- The results are continuously updating.
+
+We plotted the RAC and performed statistical analysis on various evaluation metrics for different methods. For the plotting of the RAC curve, we sampled 6 t values [0, 0.2, 0.4, 0.6, 0.8, 1] for all open environments. To ensure reliability, we conducted three experiments for each sampling point with seed values of $0\sim2$. The average of these experiments was used to plot the curve. Linear interpolation was performed between adjacent sampling points.
+
+## Inconsistent Data Distributions
+We set $t$ as the inconsistency rate between the distributions of labeled and unlabeled data. 
+
+### Tabular Data
+For tabular data, we evaluated all statistical SSL algorithms and deep SSL algorithms on the iris, wine, and letter datasets. Additionally, we evaluated all deep SSL algorithms on the larger dataset covertype. We calculated the centroids of each class in the data and used the distance between samples and class centroids to filter samples, thus constructing an environment with inconsistent data distribution. 
+
+![Distribution_statistical_tabular_labels_5](./Distribution/images/Distribution_statistical_tabular_labels_5.png)
+
+![Distribution_deep_tabular_labels_5](./Distribution/images/Distribution_deep_tabular_labels_5.png)
+
+![Distribution_statistical_tabular_labels_10](./Distribution/images/Distribution_statistical_tabular_labels_10.png)
+
+![Distribution_deep_tabular_labels_10](./Distribution/images/Distribution_deep_tabular_labels_10.png)
+
+### Image Data
+For image data, we directly used the Image-CLEF and VisDA datasets, which are commonly used in the field of transfer learning, to create environments with disparate distributions.
+
+![Distribution_Image-CLEF](./Distribution/images/Distribution_Image-CLEF.png)
+
+![Distribution_VisDA](./Distribution/images/Distribution_VisDA.png)
+
+### Text Data
+For text data, we utilized the Amazon reviews and IMDB movie reviews datasets, which have different distributions in sentiment classification, to construct environments with inconsistent distributions.
+
+![Distribution_IMDB_Amazon](./Distribution/images/Distribution_IMDB_Amazon.png)
+
+## Inconsistent Feature Spaces
+We set $t$ as the inconsistency rate between the feature spaces of labeled and unlabeled data.
+
+### Tabular Data
+For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. However, we introduced feature space inconsistency by randomly masking features. Each masked portion was filled with the mean value of the labeled data.
+
+![Feature_statistical_tabular_labels_5](./Feature/images/Feature_statistical_tabular_labels_5.png)
+
+![Feature_deep_tabular_labels_5](./Feature/images/Feature_deep_tabular_labels_5.png)
+
+![Feature_statistical_tabular_labels_10](./Feature/images/Feature_statistical_tabular_labels_10.png)
+
+![Feature_deep_tabular_labels_10](./Feature/images/Feature_deep_tabular_labels_10.png)
+
+### Image Data
+For image data, we used the CIFAR10 and CIFAR100 datasets. To create an environment with inconsistent feature space, we converted the images to grayscale, resulting in the loss of two color channels. The missing channels were filled with the preserved channel.
+
+![Feature_CIFAR](./Feature/images/Feature_CIFAR.png)
+
+### Text Data
+For text data, we used the agnews dataset. To construct an environment with inconsistent feature space, we employed text truncation. The truncated portions were filled with "<pad>".
+
+![Feature_agnews](./Feature/images/Feature_agnews.png)
+
+## Inconsistent Label Spaces
+We set $t$ as the inconsistency rate between the labeling spaces of labeled and unlabeled data.
+
+### Tabular Data
+For tabular data, we used datasets that are consistent with the environment of inconsistent distribution. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes. 
+
+![Label_statistical_tabular_labels_5](./Label/images/Label_statistical_tabular_labels_5.png)
+
+![Label_deep_tabular_labels_5](./Label/images/Label_deep_tabular_labels_5.png)
+
+![Label_statistical_tabular_labels_10](./Label/images/Label_statistical_tabular_labels_10.png)
+
+![Label_deep_tabular_labels_10](./Label/images/Label_deep_tabular_labels_10.png)
+
+### Image Data
+For image data, we used the CIFAR10 and CIFAR100 datasets. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes.
+
+![Label_agnews](./Label/images/Label_CIFAR.png)
+
+### Text Data
+For text data,  we used the agnews dataset. We constructed inconsistent labeled spaces environments by randomly selecting some classes and discarding the labeled data belonging to these classes.  -->
+</main>
+    <!-- <footer>
         &copy; 2024 
-    </footer>
+    </footer> -->
+<script>
+    // 获取包含数学公式的元素
+    const mathElements = document.querySelectorAll('#math-display');
+
+    // 对每个元素应用 KaTeX 渲染
+    mathElements.forEach(element => {
+        katex.render(element.textContent, element);
+    });
+</script>
 </body>
 </html>
